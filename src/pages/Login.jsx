@@ -1,5 +1,9 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+
+  
 
 const Login =()=> {
     const[inputValue,SetInputValue] = useState ({
@@ -10,12 +14,18 @@ const Login =()=> {
         SetInputValue({
             ...inputValue,
             [e.target.name]:e.target.value
+
         })
     }
     console.log(inputValue)
 const navigate = useNavigate();
- const handledashboard =() =>{
-  navigate("/dashboard");
+ const handledashboard =(e) =>{
+    e.preventDefault();
+    axios.post("https://achyut.acetechnepal.com/login/",inputValue)
+    .then(()=>{
+    navigate("/dashboard");
+    })
+  
  }
   return (
     <>
@@ -75,6 +85,7 @@ const navigate = useNavigate();
                     >
                        Login
                     </button>
+                     <ToastContainer />
                 </form>
             </div>
         </div>
